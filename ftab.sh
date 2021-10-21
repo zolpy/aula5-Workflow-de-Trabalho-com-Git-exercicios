@@ -21,6 +21,8 @@ Software FTAB v1.0
 -d --DepDelay   Descobrir o vôo com maior atraso na saída (DepDelay) registrado.
 -b --VooLongo   Descobrir o vôo mais longo (Distância).
 -r --Diverted   Contar quantos vôos precisaram ser redirecionados (Diverted).
+-k --calc       Calcular o tempo de atraso total para a companhia Delta Air Lines
+-m --jfkny      Mostrar o tempo total de atrasos para a decolagem de vôos no aeroporto JFK, de Nova Iorque.
 *****************************************
 "
 
@@ -59,7 +61,7 @@ case "$1" in
 ;;
 
 -a | --ArrDelay)
-       echo "****************************"
+       echo "****************************2)"
        echo "Descobrir o vôo com maior atraso na chegada (ArrDelay) registrado."
        echo -e "sort -nk15 2006-sample.csv | sed -n -e '2p;Dolar(p)' \n"
        sort -nk15 2006-sample.csv | sed -n -e '2p'
@@ -67,7 +69,7 @@ case "$1" in
 ;;
 
 -d | --DepDelay)
-       echo "****************************"
+       echo "****************************3)"
        echo "Descobrir o vôo com maior atraso na saída (DepDelay) registrado."
        echo -e "sort -nk16 2006-sample.csv | sed -n -e '2p' \n"
        sort -nk16 2006-sample.csv | sed -n -e '2p'
@@ -75,7 +77,7 @@ case "$1" in
 ;;
 
 -b | --VooLongo)
-       echo "****************************"
+       echo "****************************4)"
        echo "Descobrir o vôo mais longo (Distância)."
        echo -e "sort -nk19 2006-sample.csv | sed -n -e '2p' \n"
        sort -nk19 2006-sample.csv | sed -n -e '2p'
@@ -83,13 +85,36 @@ case "$1" in
 ;;
 
 -r | --Diverted)
-       echo "****************************"
+       echo "****************************5)"
        echo "Contar quantos vôos precisaram ser redirecionados (Diverted)."
        echo -e "cat 2006-sample.csv | grep -c '0'| wc -l \n"
        cat 2006-sample.csv | grep -c '0'| wc -l
        echo "****************************"
 ;;
 
+-k | --calc)
+       echo "****************************"
+       echo "Calcular o tempo de atraso total para a companhia Delta Air Lines."
+       echo -e "cat 2006-sample.csv | grep -c '0'| wc -l \n"
+       cat 2006-sample.csv | grep -c '0'| wc -l
+       echo "****************************"
+;;
+
+-n | --jfkny)
+       echo "****************************7)"
+       echo -e "Mostrar o tempo total de atrasos para a decolagem (DepDelay) de vôos no aeroporto JFK, de Nova Iorque.\n"
+       echo -e "sort -nk18 2006-sample.csv | grep 'JFK' | wc -l"
+       echo -e "Número total de atraso de vôos no aeroporto JFK:"
+       sort -nk18 2006-sample.csv | grep 'JFK' | wc -l 
+       echo -e "\nawk -F\",\" '\$18==\"JFK\" {SUM+=\$16}END {print SUM}' 2006-sample.csv"
+       echo -e "Tempo total de atrasos para a decolagem (DepDelay) de vôos no aeroporto JFK"
+       awk -F "," '$18=="JFK" {SUM+=$16}END {print SUM}' 2006-sample.csv 
+       
+       #count '$18=="JFK" {SUM+=$16}END {print SUM}' 2006-sample.csv 
+       #sort -nk18 2006-sample.csv | grep 'JFK' | wc -l (2198 JFK)
+       #grep 2006-sample.csv | cut -d "," -f 2 | paste -sd+ | bc
+       echo "****************************"
+;;
 
 
 *) 
