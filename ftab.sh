@@ -22,7 +22,8 @@ Software FTAB v1.0
 -b --VooLongo   Descobrir o vôo mais longo (Distância).
 -r --Diverted   Contar quantos vôos precisaram ser redirecionados (Diverted).
 -k --calc       Calcular o tempo de atraso total para a companhia Delta Air Lines
--m --jfkny      Mostrar o tempo total de atrasos para a decolagem de vôos no aeroporto JFK, de Nova Iorque.
+-n --jfkny      Mostrar o tempo total de atrasos para a decolagem de vôos no aeroporto JFK, de Nova Iorque.
+-x --lax        Mostrar o tempo total de atrasos para pousos no Aeroporto Internacional de Los Angeles (LAX).
 *****************************************
 "
 
@@ -104,15 +105,23 @@ case "$1" in
        echo "****************************7)"
        echo -e "Mostrar o tempo total de atrasos para a decolagem (DepDelay) de vôos no aeroporto JFK, de Nova Iorque.\n"
        echo -e "sort -nk18 2006-sample.csv | grep 'JFK' | wc -l"
-       echo -e "Número total de atraso de vôos no aeroporto JFK:"
-       sort -nk18 2006-sample.csv | grep 'JFK' | wc -l 
+       echo -e "Número total de atrasos de vôos no aeroporto JFK:"
+       sort -nk18 2006-sample.csv | grep 'JFK' | wc -l #(2198 JFK)
        echo -e "\nawk -F\",\" '\$18==\"JFK\" {SUM+=\$16}END {print SUM}' 2006-sample.csv"
-       echo -e "Tempo total de atrasos para a decolagem (DepDelay) de vôos no aeroporto JFK"
+       echo -e "Tempo total de atrasos para a decolagem (DepDelay) de vôos no aeroporto JFK, em minutos."
        awk -F "," '$18=="JFK" {SUM+=$16}END {print SUM}' 2006-sample.csv 
-       
-       #count '$18=="JFK" {SUM+=$16}END {print SUM}' 2006-sample.csv 
-       #sort -nk18 2006-sample.csv | grep 'JFK' | wc -l (2198 JFK)
-       #grep 2006-sample.csv | cut -d "," -f 2 | paste -sd+ | bc
+       echo "****************************"
+;;
+
+-x | --lax)
+       echo "****************************8)"
+       echo -e "Mostrar o tempo total de atrasos para pousos no Aeroporto Internacional de Los Angeles (LAX).\n"
+       echo -e "sort -nk17 2006-sample.csv | grep 'LAX' | wc -l"
+       echo -e "Número total de atrasos de vôos no aeroporto no Aeroporto Internacional de Los Angeles (LAX):"
+       sort -nk17 2006-sample.csv | grep 'LAX' | wc -l #(4729 LAX)
+       echo -e "\nawk -F\",\" '\$17==\"LAX\" {SUM+=\$15}END {print SUM}' 2006-sample.csv"
+       echo -e "Tempo total de atrasos para pousos no Aeroporto Internacional de Los Angeles (LAX), em minutos."
+       awk -F "," '$17=="LAX" {SUM+=$15}END {print SUM}' 2006-sample.csv 
        echo "****************************"
 ;;
 
