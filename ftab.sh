@@ -22,7 +22,7 @@ Software FTAB v1.0
 -b --VooLongo   Descobrir o vôo mais longo (Distância).
 -r --Diverted   Contar quantos vôos precisaram ser redirecionados (Diverted).
 -k --calc       Calcular o tempo de atraso total para a companhia Delta Air Lines
--n --jfkny      Mostrar o tempo total de atrasos para a decolagem de vôos no aeroporto JFK, de Nova Iorque.
+-n --jfk        Mostrar o tempo total de atrasos para a decolagem de vôos no aeroporto JFK, de Nova Iorque.
 -x --lax        Mostrar o tempo total de atrasos para pousos no Aeroporto Internacional de Los Angeles (LAX).
 *****************************************
 "
@@ -101,7 +101,7 @@ case "$1" in
        echo "****************************"
 ;;
 
--n | --jfkny)
+-n | --jfk)
        echo "****************************7)"
        echo -e "Mostrar o tempo total de atrasos para a decolagem (DepDelay) de vôos no aeroporto JFK, de Nova Iorque.\n"
        echo -e "sort -nk18 2006-sample.csv | grep 'JFK' | wc -l"
