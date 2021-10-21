@@ -20,6 +20,7 @@ Software FTAB v1.0
 -a --ArrDelay   Descobrir o vôo com maior atraso na chegada (ArrDelay) registrado.
 -d --DepDelay   Descobrir o vôo com maior atraso na saída (DepDelay) registrado.
 -b --VooLongo   Descobrir o vôo mais longo (Distância).
+-r --Diverted   Contar quantos vôos precisaram ser redirecionados (Diverted).
 *****************************************
 "
 
@@ -78,6 +79,14 @@ case "$1" in
        echo "Descobrir o vôo mais longo (Distância)."
        echo -e "sort -nk19 2006-sample.csv | sed -n -e '2p' \n"
        sort -nk19 2006-sample.csv | sed -n -e '2p'
+       echo "****************************"
+;;
+
+-r | --Diverted)
+       echo "****************************"
+       echo "Contar quantos vôos precisaram ser redirecionados (Diverted)."
+       echo -e "cat 2006-sample.csv | grep -c '0'| wc -l \n"
+       cat 2006-sample.csv | grep -c '0'| wc -l
        echo "****************************"
 ;;
 
