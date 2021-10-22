@@ -94,10 +94,20 @@ case "$1" in
 ;;
 
 -k | --calc)
-       echo "****************************"
+       echo "****************************6)"
        echo "Calcular o tempo de atraso total para a companhia Delta Air Lines."
-       echo -e "cat 2006-sample.csv | grep -c '0'| wc -l \n"
-       cat 2006-sample.csv | grep -c '0'| wc -l
+       echo -e "Número total de atrasos da companhia Delta Air Lines (DL):"
+       sort -nk9 2006-sample.csv | grep 'DL' | wc -l #(5567 DL)
+       #echo -e "\nQuantos espaços vazios na Delta Air Lines (DL):"
+       #sort -b -nk16 2006-sample.csv | wc -l #(5567 DL)
+       echo -e "\nTempo total de atraso (ArrDelay) para a companhia Delta Air Lines, em minutos."
+       awk -F "," '$9=="DL" {SUM+=$15}END {print SUM}' 2006-sample.csv 
+       echo -e "\nTempo total de atraso (DepDelay) para a companhia Delta Air Lines, em minutos."
+       awk -F "," '$9=="DL" {SUM+=$16}END {print SUM}' 2006-sample.csv 
+       echo -e "------------------------------"
+       echo -e "xxxxxx TOTAL"
+       echo -e "\nTempo total para a companhia Delta Air Lines, em minutos."
+       #dc -e 'sort -nk16 2006-sample.csv +p'
        echo "****************************"
 ;;
 
@@ -125,6 +135,7 @@ case "$1" in
        echo "****************************"
 ;;
 
+#
 
 *) 
   echo "****************************"
